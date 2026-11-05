@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Gift - Navy Aesthetic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      background: #020b18;
+      color: #fff;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+      background: radial-gradient(circle at center, #0f2b48 0%, #051326 60%, #020b18 100%);
+      padding: 20px;
+    }
+
+    .slide.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    /* SLIDE 1 */
+    .title-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: #e2f1ff;
+      text-shadow: 0 0 15px rgba(147, 197, 253, 0.5);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .envelope-btn {
+      width: clamp(220px, 45vw, 340px);
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .envelope-btn img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+    }
+
+    .envelope-btn:hover {
+      transform: translateY(-5px) scale(1.04);
+      filter: drop-shadow(0 20px 35px rgba(96, 165, 250, 0.4));
+    }
+
+    .tap-hint {
+      margin-top: 35px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: #93c5fd;
+      letter-spacing: 1px;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    /* PARTICLES CONTAINER SLIDE 2 */
+    .particles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(147, 197, 253, 0.9) 0%, rgba(59, 130, 246, 0.3) 60%, transparent 100%);
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) scale(0.3);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* SLIDE 2 LAYOUT */
+    .collage-container {
+      position: relative;
+      width: 100%;
+      max-width: 950px;
+      height: 85vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    /* Main Letter Card */
+    .letter-card {
+      background: #f8fafc;
+      color: #0f172a;
+      width: min(90%, 430px);
+      padding: 28px 22px;
+      border-radius: 4px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      text-align: center;
+      position: relative;
+      z-index: 5;
+      transform: rotate(-1deg);
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 12px 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .card-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: #1e3a8a;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .card-body {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.82rem, 1.7vw, 0.95rem);
+      line-height: 1.65;
+      color: #334155;
+    }
+
+    .card-body p {
+      margin-bottom: 10px;
+    }
+
+    .card-signature {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: #2563eb;
+      margin-top: 15px;
+    }
+
+    /* SVG Heart Frame (Left) */
+    .heart-wrapper {
+      position: absolute;
+      left: 2%;
+      top: 12%;
+      width: clamp(140px, 22vw, 210px);
+      height: clamp(140px, 22vw, 210px);
+      transform: rotate(-12deg);
+      z-index: 3;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+    }
+
+    .heart-wrapper svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Single Polaroid (Left Bottom - .jpg) */
+    .polaroid-single {
+      position: absolute;
+      left: 5%;
+      bottom: 8%;
+      background: #fff;
+      padding: 8px 8px 24px 8px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+      transform: rotate(-15deg);
+      z-index: 6;
+      width: clamp(120px, 18vw, 170px);
+    }
+
+    .polaroid-single img {
+      width: 100%;
+      height: clamp(90px, 13vw, 120px);
+      object-fit: cover;
+    }
+
+    /* Photostrip (Right - .jpg) */
+    .photostrip {
+      position: absolute;
+      right: 4%;
+      top: 8%;
+      background: #ffffff;
+      padding: 12px 12px 20px 12px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      transform: rotate(8deg);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: clamp(110px, 16vw, 150px);
+    }
+
+    .photostrip img {
+      width: 100%;
+      height: clamp(80px, 11vw, 110px);
+      object-fit: cover;
+    }
+
+    /* Stickers */
+    .decor-sticker {
+      position: absolute;
+      z-index: 8;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .butterfly {
+      bottom: 12%;
+      left: 22%;
+      font-size: clamp(2rem, 4vw, 3rem);
+      transform: rotate(15deg);
+    }
+
+    .blue-rose {
+      top: 5%;
+      right: 18%;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .flower-sakura {
+      bottom: 5%;
+      right: 2%;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    }
+
+    .flower-left {
+      top: 45%;
+      left: 20%;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    }
+
+    /* Music Control Button */
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 600px) {
+      .heart-wrapper {
+        top: 5%;
+        left: 2%;
+        width: 110px;
+        height: 110px;
+      }
+      .polaroid-single {
+        left: 2%;
+        bottom: 4%;
+        width: 110px;
+      }
+      .photostrip {
+        right: 2%;
+        top: 5%;
+        width: 95px;
+        padding: 8px 8px 15px 8px;
+      }
+      .butterfly { left: 28%; bottom: 6%; }
+      .flower-left { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Music Control Button -->
+  <button class="music-btn" id="musicToggle" title="Toggle Music">🎵</button>
+  
+  <!-- Audio Lokal -->
+  <audio id="bgMusic" loop src="audio/lagu.mp3"></audio>
+
+  <!-- SLIDE 1 -->
+  <div class="slide" id="slide1">
+    <h1 class="title-script">Press the Envelope</h1>
+    <div class="envelope-btn" id="openBtn">
+      <!-- Gambar Amplop (.png) -->
+      <img src="images/amplop.png" alt="Envelope">
+    </div>
+    <div class="tap-hint">tap to lanjut</div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide hidden" id="slide2">
+    <!-- Floating Glowing Particles Background -->
+    <div class="particles-container" id="particles"></div>
+
+    <div class="collage-container">
+      
+      <!-- Heart Photo (SVG Masking) -->
+      <div class="heart-wrapper">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <clipPath id="heart-clip">
+              <path d="M50,88 C20,60 5,45 5,28 C5,15 15,5 28,5 C36,5 44,10 50,18 C56,10 64,5 72,5 C85,5 95,15 95,28 C95,45 80,60 50,88 Z" />
+            </clipPath>
+          </defs>
+          <!-- Border Putih Hati -->
+          <path d="M50,88 C20,60 5,45 5,28 C5,15 15,5 28,5 C36,5 44,10 50,18 C56,10 64,5 72,5 C85,5 95,15 95,28 C95,45 80,60 50,88 Z" fill="#ffffff" />
+          <!-- Gambar Foto (.jpg) di dalam Hati -->
+          <image href="images/foto-hati.jpg" width="90" height="90" x="5" y="5" preserveAspectRatio="xMidYMid slice" clip-path="url(#heart-clip)" />
+        </svg>
+      </div>
+
+      <!-- Single Polaroid (Left Bottom - .jpg) -->
+      <div class="polaroid-single">
+        <img src="images/foto-polaroid.jpg" alt="Memory photo">
+      </div>
+
+      <!-- Central Letter Card -->
+      <div class="letter-card">
+        <h2 class="card-title">Congrats ya, DILAAA !</h2>
+        <div class="card-body">
+          <p>Finally, beban berat di pundakmu selesai juga hari ini.</p>
+          <p>I know exactly gimana pusing dan capeknya kamu akhir-akhir ini, tapi kamu keren banget bisa bertahan. I am so proud of you, my amazing partner!</p>
+          <p>Sekarang stop thinking about the exam, waktunya rebahan dan get some proper rest. Love you to the moon and back ♥</p>
+        </div>
+        <div class="card-signature">Always Yours ♥</div>
+      </div>
+
+      <!-- Photostrip (Right - .jpg) -->
+      <div class="photostrip">
+        <img src="images/photostrip1.jpg" alt="Photo 1">
+        <img src="images/photostrip2.jpg" alt="Photo 2">
+        <img src="images/photostrip3.jpg" alt="Photo 3">
+      </div>
+
+      <!-- Blue Aesthetics Stickers -->
+      <div class="decor-sticker butterfly">🦋</div>
+      <div class="decor-sticker blue-rose">🌹</div>
+      <div class="decor-sticker flower-sakura">🌸</div>
+      <div class="decor-sticker flower-left">✨</div>
+
+    </div>
+  </div>
+
+  <script>
+    const slide1 = document.getElementById('slide1');
+    const slide2 = document.getElementById('slide2');
+    const openBtn = document.getElementById('openBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const particlesContainer = document.getElementById('particles');
+    let isPlaying = false;
+
+    // Generate Floating Particles
+    function createParticles() {
+      const particleCount = 25;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 8 + 4;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration = `${Math.random() * 6 + 4}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    createParticles();
+
+    // Transition Slide 1 -> Slide 2
+    openBtn.addEventListener('click', () => {
+      slide1.classList.add('hidden');
+      slide2.classList.remove('hidden');
+
+      if (!isPlaying) {
+        bgMusic.play().then(() => {
+          isPlaying = true;
+          musicToggle.textContent = '🎶';
+        }).catch(() => {});
+      }
+    });
+
+    // Music Toggle Control
+    musicToggle.addEventListener('click', () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicToggle.textContent = '🎵';
+        isPlaying = false;
+      } else {
+        bgMusic.play();
+        musicToggle.textContent = '🎶';
+        isPlaying = true;
+      }
+    });
+  </script>
+</body>
+</html>
